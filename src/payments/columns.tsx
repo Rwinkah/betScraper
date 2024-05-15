@@ -1,24 +1,48 @@
 import { ColumnDef } from "@tanstack/react-table";
+import { Switch } from "@/components/ui/switch";
+import ReactCountryFlag from "react-country-flag"
 
-
-export type Payment = {
-    id: string
-    amount: number
-    status: 'pending' | 'processing' | 'success' | 'failed'
-    email: string
+export type Plugin = {
+    plugName: string
+    plugID: string
+    plugStatus: boolean
+    plugLoc: string
+    plugRate: boolean
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Plugin>[] = [
     {
-        accessorKey: 'status', 
-        header: "Status"
+        accessorKey: 'plugName', 
+        header: "Plugin"
     },
     {
-        accessorKey: "email",
-        header: "Email"
+        accessorKey: "plugID",
+        header: "Plugin ID"
     },
     {
-        accessorKey: 'amount',
-        header: 'Amount'
-    }
+            accessorKey: 'plugStatus',
+            header: 'Status',
+            cell: ({ row }) => (
+                    <Switch 
+                        // checked={row.original.plugStatus} 
+                        // onChange={() => { row.original.plugStatus = !row.original.plugStatus} /* handle change here */}
+                    />
+                )
+    },
+    {
+        accessorKey: "plugLoc",
+        header: "Location",
+        cell: ({ row }) => <ReactCountryFlag countryCode={row.original.plugLoc} alt="Location" /> 
+    },
+    {
+        accessorKey: 'plugRate',
+        header: 'Rate Limiting',
+        cell: ({ row }) => (
+            <Switch 
+                // checked={row.original.plugStatus} 
+                // onChange={() => { row.original.plugStatus = !row.original.plugStatus} /* handle change here */}
+            />
+        )
+    },
+
 ]
